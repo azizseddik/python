@@ -1,0 +1,77 @@
+{% extends 'livres_temp/base.html' %}
+{% block title %}Gestion des Livres{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1><i class="bi bi-book me-2" style="color:var(--accent)"></i>Gestion des Livres</h1>
+  <a href="{% url 'livre_create' %}" class="btn btn-primary">
+    <i class="bi bi-plus-lg me-1"></i> Ajouter
+  </a>
+</div>
+
+<!-- Search -->
+<form method="get" class="mb-4">
+  <div class="input-group" style="max-width:420px">
+    <input type="text" name="q" value="{{ query }}" class="form-control"
+           placeholder="Rechercher par titre, auteur ou ID…">
+    <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+    {% if query %}
+      <a href="{% url 'livre_list' %}" class="btn btn-outline-secondary">✕</a>
+    {% endif %}
+  </div>
+</form>
+
+<!-- Stats -->
+<div class="d-flex gap-3 mb-4 flex-wrap">
+  <span class="badge badge-disponible px-3 py-2 rounded-pill fs-6">
+    <i class="bi bi-check-circle me-1"></i>
+    {{ livres|length }} livre{{ livres|length|pluralize }} affiché{{ livres|length|pluralize }}
+  </span>
+</div>
+
+<!-- Table -->
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-borderless mb-0">
+      <thead>
+        <tr>
+          <th>ID</th><th>Titre</th><th>Auteur</th><th>Catégorie</th>
+          <th>Année</th><th>Qté</th><th>Statut</th><th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in livres %}
+        <tr>
+          <td class="text-muted">{{ l.id }}</td>
+          <td><strong>{{ l.titre }}</strong></td>
+          <td>{{ l.auteur }}</td>
+          <td><span class="text-muted">{{ l.categorie }}</span></td>
+          <td>{{ l.annee_publication|default:"—" }}</td>
+          <td>{{ l.quantite_disponible }}</td>
+          <td>
+            <span class="badge badge-{{ l.statut }} px-2 py-1 rounded-pill">
+              {{ l.get_statut_display }}
+            </span>
+          </td>
+          <td class="text-end">
+            <a href="{% url 'livre_update' l.pk %}" class="btn btn-sm btn-outline-secondary me-1">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <a href="{% url 'livre_delete' l.pk %}" class="btn btn-sm btn-outline-danger">
+              <i class="bi bi-trash"></i>
+            </a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="8" class="text-center text-muted py-5">
+            <i class="bi bi-inbox fs-2 d-block mb-2"></i>
+            Aucun livre trouvé{% if query %} pour « {{ query }} »{% endif %}.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

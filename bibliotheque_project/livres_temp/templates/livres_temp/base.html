@@ -1,0 +1,154 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Bibliothèque Intelligente{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0f1117;
+      --sidebar: #1a1d2e;
+      --card:    #1e2235;
+      --accent:  #5b8cff;
+      --border:  #2e3350;
+    }
+    body { background: var(--bg); color: #e8eaf6; min-height: 100vh; }
+
+    /* Sidebar */
+    #sidebar {
+      width: 240px; min-height: 100vh;
+      background: var(--sidebar);
+      border-right: 1px solid var(--border);
+      position: fixed; top: 0; left: 0; z-index: 100;
+      display: flex; flex-direction: column;
+    }
+    #sidebar .brand {
+      padding: 1.4rem 1.2rem 1rem;
+      font-size: 1.1rem; font-weight: 700; color: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+    #sidebar .brand span { color: var(--accent); }
+    #sidebar .nav-link {
+      color: #9399b2; padding: .7rem 1.2rem;
+      border-radius: 8px; margin: 2px 10px;
+      display: flex; align-items: center; gap: .6rem;
+      font-size: .95rem; transition: all .15s;
+    }
+    #sidebar .nav-link:hover,
+    #sidebar .nav-link.active {
+      background: rgba(91,140,255,.15); color: var(--accent);
+    }
+    #sidebar .nav-link i { font-size: 1.1rem; width: 20px; }
+    #sidebar .sidebar-footer {
+      margin-top: auto; padding: 1rem 1.2rem;
+      font-size: .75rem; color: #555; border-top: 1px solid var(--border);
+    }
+
+    /* Main content */
+    #main { margin-left: 240px; padding: 2rem; }
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header h1 { font-size: 1.5rem; font-weight: 700; margin: 0; }
+
+    /* Cards */
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    /* Table */
+    .table { color: #e8eaf6; }
+    .table thead th {
+      background: var(--sidebar); color: var(--accent);
+      font-size: .8rem; text-transform: uppercase; letter-spacing: .05em;
+      border-color: var(--border); padding: .8rem 1rem;
+    }
+    .table tbody tr { border-color: var(--border); }
+    .table tbody tr:hover { background: rgba(91,140,255,.06); }
+    .table td { vertical-align: middle; padding: .7rem 1rem; }
+
+    /* Badges */
+    .badge-disponible { background: rgba(61,220,132,.15); color: #3ddc84; }
+    .badge-emprunté   { background: rgba(255,92,92,.15);  color: #ff5c5c; }
+    .badge-réservé    { background: rgba(255,179,71,.15); color: #ffb347; }
+
+    /* Buttons */
+    .btn-primary   { background: var(--accent); border-color: var(--accent); }
+    .btn-primary:hover { background: #4070e0; border-color: #4070e0; }
+    .btn-outline-secondary { color: #9399b2; border-color: var(--border); }
+    .btn-outline-secondary:hover { background: var(--border); color: #fff; }
+
+    /* Form inputs */
+    .form-control, .form-select {
+      background: var(--bg); color: #e8eaf6;
+      border-color: var(--border);
+    }
+    .form-control:focus, .form-select:focus {
+      background: var(--bg); color: #e8eaf6;
+      border-color: var(--accent); box-shadow: 0 0 0 .2rem rgba(91,140,255,.2);
+    }
+    .form-label { color: #9399b2; font-size: .875rem; }
+
+    /* Alerts */
+    .alert { border: none; border-radius: 8px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #sidebar { display: none; }
+      #main { margin-left: 0; padding: 1rem; }
+    }
+  </style>
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav id="sidebar">
+  <div class="brand">📚 <span>Bibliothèque</span> IA</div>
+  <ul class="nav flex-column mt-2">
+    <li class="nav-item">
+      <a href="{% url 'livre_list' %}"
+         class="nav-link {% if request.resolver_match.url_name == 'livre_list' %}active{% endif %}">
+        <i class="bi bi-book"></i> Gestion des Livres
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'livre_create' %}"
+         class="nav-link {% if request.resolver_match.url_name == 'livre_create' %}active{% endif %}">
+        <i class="bi bi-plus-circle"></i> Ajouter un Livre
+      </a>
+    </li>
+    <li class="nav-item mt-2">
+      <a href="{% url 'chatbot' %}"
+         class="nav-link {% if 'chatbot' in request.resolver_match.url_name %}active{% endif %}">
+        <i class="bi bi-robot"></i> Chatbot IA
+      </a>
+    </li>
+  </ul>
+  <div class="sidebar-footer">ISET Tozeur &mdash; 2025–2026</div>
+</nav>
+
+<!-- Main -->
+<main id="main">
+  {% if messages %}
+    {% for msg in messages %}
+      <div class="alert alert-{{ msg.tags }} alert-dismissible fade show" role="alert">
+        {{ msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% block content %}{% endblock %}
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

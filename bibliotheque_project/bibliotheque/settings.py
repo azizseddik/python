@@ -54,18 +54,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bibliotheque.wsgi.application'
 
-# ---- Base de données MySQL ----
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'bibliotheque_db'),
-        'USER': os.getenv('DB_USER', 'root'),
+        'NAME':     os.getenv('DB_NAME',     'bibliotheque_db'),
+        'USER':     os.getenv('DB_USER',     'root'),
         'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DB_PORT', '3307'),
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-        },
+        'HOST':     os.getenv('DB_HOST',     '127.0.0.1'),
+        'PORT':     os.getenv('DB_PORT',     '3306'),
+        'OPTIONS':  {'charset': 'utf8mb4'},
     }
 }
 
@@ -77,14 +74,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'fr-fr'
-TIME_ZONE = 'Africa/Tunis'
-USE_I18N = True
-USE_TZ = True
+TIME_ZONE     = 'Africa/Tunis'
+USE_I18N      = True
+USE_TZ        = True
 
 STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK          = 'bootstrap5'
 
-ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY', '')
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
+GEMINI_MODEL   = os.getenv('GEMINI_MODEL',   'gemini-1.5-flash')
+
+# Session storage (needed for chatbot history)
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'

@@ -1,0 +1,14 @@
+[
+  {"model":"livres_temp.livre","pk":1,"fields":{"titre":"Le Petit Prince","auteur":"Antoine de Saint-Exupéry","categorie":"Roman","annee_publication":1943,"quantite_disponible":3,"statut":"disponible"}},
+  {"model":"livres_temp.livre","pk":2,"fields":{"titre":"Les Misérables","auteur":"Victor Hugo","categorie":"Roman","annee_publication":1862,"quantite_disponible":0,"statut":"emprunté"}},
+  {"model":"livres_temp.livre","pk":3,"fields":{"titre":"Notre-Dame de Paris","auteur":"Victor Hugo","categorie":"Roman","annee_publication":1831,"quantite_disponible":2,"statut":"disponible"}},
+  {"model":"livres_temp.livre","pk":4,"fields":{"titre":"Les Contemplations","auteur":"Victor Hugo","categorie":"Poésie","annee_publication":1856,"quantite_disponible":1,"statut":"disponible"}},
+  {"model":"livres_temp.livre","pk":5,"fields":{"titre":"Orgueil et Préjugés","auteur":"Jane Austen","categorie":"Roman","annee_publication":1813,"quantite_disponible":2,"statut":"disponible"}},
+  {"model":"livres_temp.livre","pk":6,"fields":{"titre":"Jane Eyre","auteur":"Charlotte Brontë","categorie":"Roman","annee_publication":1847,"quantite_disponible":1,"statut":"disponible"}},
+  {"model":"livres_temp.livre","pk":7,"fields":{"titre":"Le Rouge et le Noir","auteur":"Stendhal","categorie":"Roman","annee_publication":1830,"quantite_disponible":0,"statut":"emprunté"}},
+  {"model":"livres_temp.livre","pk":8,"fields":{"titre":"1984","auteur":"George Orwell","categorie":"Science","annee_publication":1949,"quantite_disponible":2,"statut":"disponible"}},
+  {"model":"livres_temp.livre","pk":9,"fields":{"titre":"Sapiens","auteur":"Yuval Noah Harari","categorie":"Histoire","annee_publication":2011,"quantite_disponible":3,"statut":"disponible"}},
+  {"model":"livres_temp.livre","pk":10,"fields":{"titre":"Python pour les Nuls","auteur":"John Paul Mueller","categorie":"Informatique","annee_publication":2018,"quantite_disponible":1,"statut":"disponible"}},
+  {"model":"livres_temp.livre","pk":11,"fields":{"titre":"Dune","auteur":"Frank Herbert","categorie":"Science","annee_publication":1965,"quantite_disponible":2,"statut":"réservé"}},
+  {"model":"livres_temp.livre","pk":12,"fields":{"titre":"Le Comte de Monte-Cristo","auteur":"Alexandre Dumas","categorie":"Roman","annee_publication":1844,"quantite_disponible":1,"statut":"disponible"}}
+]
